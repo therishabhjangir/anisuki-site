@@ -4,6 +4,7 @@ import Header from "./components/Header";
 import Hero from "./components/Hero";
 import About from "./components/About";
 import Subjects from "./components/Subjects";
+import AnatomyPage from "./pages/subjects/anatomy";
 import Gallery from "./components/Gallery";
 import Blog from "./components/Blog";
 import Contact from "./components/Contact";
