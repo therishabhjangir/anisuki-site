@@ -1,12 +1,11 @@
-﻿import React from "react"
+import React from "react"
 import Header from "./components/Header"
 import About from "./components/About"
+import Subjects from "./components/Subjects"
 import Gallery from "./components/Gallery"
 import Blog from "./components/Blog"
 import Contact from "./components/Contact"
 import Footer from "./components/Footer"
-import Subjects from "./components/Subjects"
-
 
 export default function App() {
   return (
