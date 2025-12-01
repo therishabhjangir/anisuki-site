@@ -1,8 +1,28 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import { SITE } from "../siteConfig"
 
 export default function Contact() {
   const actionUrl = `https://formsubmit.co/${SITE.emailForForm}`
+  const [showSuccess, setShowSuccess] = useState(false)
+
+  useEffect(() => {
+    // On mount, check if URL hash is "#contact-success"
+    if (typeof window !== "undefined" && window.location.hash === "#contact-success") {
+      setShowSuccess(true)
+      // optional: scroll into view for better UX
+      const el = document.getElementById("contact-success")
+      if (el && typeof el.scrollIntoView === "function") {
+        // smooth scroll on modern browsers
+        el.scrollIntoView({ behavior: "smooth" })
+      }
+    }
+    // Also listen for hashchange (in case user navigates)
+    const onHash = () => {
+      setShowSuccess(window.location.hash === "#contact-success")
+    }
+    window.addEventListener("hashchange", onHash)
+    return () => window.removeEventListener("hashchange", onHash)
+  }, [])
 
   return (
     <>
@@ -26,13 +46,15 @@ export default function Contact() {
         </div>
       </section>
 
-      {/* Success section — user will be redirected here after submit */}
-      <section id="contact-success" className="py-12 bg-green-50 mt-8">
-        <div className="max-w-4xl mx-auto px-4 text-center">
-          <h2 className="text-2xl font-bold mb-2">Message Sent!</h2>
-          <p className="text-gray-700">Thank you for contacting AniSuki. I will get back to you soon. If you don’t receive a reply within a few days, check your spam or send a follow-up message.</p>
-        </div>
-      </section>
+      {/* Success section — show only when redirected to #contact-success */}
+      {showSuccess && (
+        <section id="contact-success" className="py-12 bg-green-50 mt-8">
+          <div className="max-w-4xl mx-auto px-4 text-center">
+            <h2 className="text-2xl font-bold mb-2">Message Sent!</h2>
+            <p className="text-gray-700">Thank you for contacting AniSuki. I will get back to you soon. If you don’t receive a reply within a few days, check your spam or send a follow-up message.</p>
+          </div>
+        </section>
+      )}
     </>
   )
 }
