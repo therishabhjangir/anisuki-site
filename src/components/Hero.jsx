@@ -1,41 +1,118 @@
-import React from "react"
+// src/components/Hero.jsx
+import React from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { SITE } from "../siteConfig";
 
 export default function Hero() {
+  const navigate = useNavigate();
+  const heroBg = "/images/home/hero-art.jpg";
+
   return (
-    <section className="bg-gradient-to-br from-white via-slate-50 to-white py-16">
-      <div className="max-w-4xl mx-auto px-4 text-center">
-        <div className="inline-block rounded-2xl px-4 py-2 mb-6 bg-anisuki/5 border border-anisuki/20">
-          <span className="text-sm font-medium text-anisuki">AniSuki — Veterinary Study Hub</span>
+    <section
+      id="hero"
+      className="relative w-full overflow-hidden"
+      aria-label="AniSuki hero"
+    >
+      {/* Background */}
+      <div
+        className="absolute inset-0 bg-cover bg-center -z-10"
+        style={{
+          backgroundImage: `url(${heroBg})`,
+          filter: "saturate(1.02) contrast(0.98)",
+        }}
+      />
+
+      {/* overlay for soft gradient */}
+      <div className="absolute inset-0 bg-gradient-to-b from-white/70 via-white/40 to-white/60 -z-5"></div>
+
+      <div className="max-w-6xl mx-auto px-6 py-20 lg:py-32">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+          <div className="space-y-6">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight text-slate-800">
+              AniSuki — Veterinary learning, made gentle.
+            </h1>
+            <p className="text-lg md:text-xl text-slate-600 max-w-xl">
+              Concise MSVE-aligned notes, clear diagrams, and a student community — all in one calm place.
+            </p>
+
+            <div className="flex items-center gap-4">
+              <Link
+                to="/subjects/veterinary-anatomy"
+                className="inline-block px-5 py-3 rounded-full bg-rose-400 hover:bg-rose-500 text-white font-semibold shadow-md"
+                aria-label="Open Veterinary Anatomy"
+              >
+                Start Anatomy
+              </Link>
+
+              <button
+                onClick={() => {
+                  navigate("/");
+                  setTimeout(() => {
+                    const el = document.getElementById("subjects");
+                    if (el) el.scrollIntoView({ behavior: "smooth" });
+                  }, 120);
+                }}
+                className="inline-block px-4 py-3 rounded-full border border-slate-200 bg-white text-slate-700 font-medium shadow-sm"
+              >
+                Explore Subjects
+              </button>
+            </div>
+
+            <div className="text-sm text-slate-500 mt-2">
+              Free, MSVE-aligned notes — curated for exam clarity.
+            </div>
+          </div>
+
+          {/* Right column - subtle card previews */}
+          <div className="grid grid-cols-1 gap-4">
+            <div className="rounded-2xl overflow-hidden shadow-lg bg-white border">
+              <img src="/images/home/feature-study.png" alt="Study illustration" className="w-full h-48 object-cover" />
+              <div className="p-4">
+                <h4 className="font-semibold text-slate-800">Organized Notes</h4>
+                <p className="text-sm text-slate-500">Units → Topics → Drive notes. Clean and quick.</p>
+              </div>
+            </div>
+
+            <div className="rounded-2xl overflow-hidden shadow-lg bg-white border">
+              <img src="/images/home/feature-notes.png" alt="Notes illustration" className="w-full h-48 object-cover" />
+              <div className="p-4">
+                <h4 className="font-semibold text-slate-800">Exam-Focused</h4>
+                <p className="text-sm text-slate-500">Short tricky Qs, high-yield summaries and diagrams.</p>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <h1 className="text-4xl sm:text-5xl font-extrabold leading-tight mb-4">
-          AniSuki — Practical Veterinary Notes & Guides
-        </h1>
+        {/* quick subject chips */}
+        <div className="mt-12">
+          <h3 className="text-lg font-semibold text-slate-700 mb-4">Quick subjects</h3>
+          <div className="flex gap-4 overflow-x-auto pb-2">
+            <a className="min-w-[220px] shrink-0 block rounded-xl border bg-white shadow-sm" href="/subjects/veterinary-anatomy">
+              <img src="/images/home/subject-anatomy-thumb.jpg" alt="Veterinary Anatomy" className="w-full h-32 object-cover rounded-t-xl" />
+              <div className="p-3">
+                <div className="font-semibold text-slate-800">Veterinary Anatomy</div>
+                <div className="text-xs text-slate-500">Units, clinical sites & diagrams</div>
+              </div>
+            </a>
 
-        <p className="text-lg text-gray-600 mb-6">
-          Curated B.V.Sc. & A.H. notes, concise summaries, and study resources — by Rishabh Jangir. Build confidence, not confusion.
-        </p>
+            <a className="min-w-[220px] shrink-0 block rounded-xl border bg-white shadow-sm" href="/subjects/veterinary-physiology">
+              <img src="/images/home/subject-generic-thumb.jpg" alt="Physiology" className="w-full h-32 object-cover rounded-t-xl" />
+              <div className="p-3">
+                <div className="font-semibold text-slate-800">Veterinary Physiology</div>
+                <div className="text-xs text-slate-500">Mechanisms and pathways</div>
+              </div>
+            </a>
 
-        <div className="flex justify-center gap-4">
-          <a
-            href="#subjects"
-            className="inline-block px-6 py-3 rounded-lg bg-anisuki text-white font-medium shadow hover:brightness-95"
-          >
-            Explore Subjects
-          </a>
-
-          <a
-            href="#contact"
-            className="inline-block px-6 py-3 rounded-lg border border-gray-200 text-gray-700 hover:bg-gray-50"
-          >
-            Contact AniSuki
-          </a>
+            <a className="min-w-[220px] shrink-0 block rounded-xl border bg-white shadow-sm" href="/subjects/veterinary-parasitology">
+              <img src="/images/home/subject-generic-thumb.jpg" alt="Parasitology" className="w-full h-32 object-cover rounded-t-xl" />
+              <div className="p-3">
+                <div className="font-semibold text-slate-800">Veterinary Parasitology</div>
+                <div className="text-xs text-slate-500">Parasites, life cycles & images</div>
+              </div>
+            </a>
+          </div>
         </div>
-
-        <p className="text-sm text-gray-500 mt-6">
-          AniSuki is a student-run resource — notes will be added progressively; perfect for IVRI learners.
-        </p>
       </div>
     </section>
-  )
+  );
 }
