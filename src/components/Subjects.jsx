@@ -1,61 +1,249 @@
-import React from "react"
+import React, { useState } from "react"
 
-const SUBJECTS = [
+/**
+ * Interactive Subjects component (MSVE-aligned)
+ * - Subject -> Units -> Topics (comma-separated)
+ * - Click subject to expand units; click unit to show topics.
+ *
+ * Fill the `DATA` object with actual unit and topic strings from MSVE.
+ * This file is intentionally data-driven.
+ */
+
+const DATA = [
   {
-    title: "Foundational Sciences (Pre-Clinical)",
-    items: ["Veterinary Anatomy", "Veterinary Physiology", "Veterinary Biochemistry"],
+    year: "First Professional (Year 1)",
+    subjects: [
+      {
+        slug: "veterinary-anatomy",
+        name: "Veterinary Anatomy",
+        units: [
+          {
+            unitName: "Unit I — General Anatomy & Osteology",
+            topics: "Terminology, Cells and tissues, Bones of axial and appendicular skeleton, Joints, Developmental anatomy"
+          },
+          {
+            unitName: "Unit II — Myology & Angiology",
+            topics: "Muscle groups, Muscle actions, Arterial supply and venous drainage, Lymphatics"
+          },
+          {
+            unitName: "Unit III — Nervous System & Sense Organs",
+            topics: "Peripheral nerves, Spinal cord segments, Cranial nerves, Eye anatomy, Ear anatomy"
+          }
+        ]
+      },
+      {
+        slug: "veterinary-physiology",
+        name: "Veterinary Physiology",
+        units: [
+          {
+            unitName: "Unit I — Cell physiology & Homeostasis",
+            topics: "Membrane potential, Transport, Hormone basics"
+          },
+          {
+            unitName: "Unit II — Cardiovascular system",
+            topics: "Cardiac cycle, ECG basics, Hemodynamics"
+          }
+        ]
+      },
+      // Livestock Production Management etc. can be added here
+    ]
   },
   {
-    title: "Para-Clinical Sciences",
-    items: ["Veterinary Microbiology", "Veterinary Pathology", "Veterinary Parasitology", "Veterinary Pharmacology and Toxicology", "Veterinary Public Health and Epidemiology"],
+    year: "Second Professional (Year 2)",
+    subjects: [
+      {
+        slug: "veterinary-microbiology",
+        name: "Veterinary Microbiology",
+        units: [
+          {
+            unitName: "Unit I — Bacteriology",
+            topics: "Staining, Culture methods, Basics of pathogenic bacteria"
+          }
+        ]
+      },
+      {
+        slug: "veterinary-pathology",
+        name: "Veterinary Pathology",
+        units: [
+          {
+            unitName: "Unit I — General Pathology",
+            topics: "Cell injury, Inflammation, Repair, Hemodynamic disorders"
+          }
+        ]
+      },
+      {
+        slug: "veterinary-biochemistry",
+        name: "Veterinary Biochemistry",
+        units: [
+          {
+            unitName: "Unit I — Biomolecules & Metabolism basics",
+            topics: "Carbohydrates, Proteins, Lipids, Enzymes, Vitamins"
+          },
+          {
+            unitName: "Unit II — Clinical Biochemistry",
+            topics: "Liver function tests, Renal function tests, Electrolytes, Acid-base"
+          }
+        ]
+      }
+    ]
   },
   {
-    title: "Animal Husbandry & Production",
-    items: ["Livestock Production Management (LPM)", "Animal Nutrition", "Animal Genetics and Breeding (AGB)", "Livestock Products Technology (LPT)", "Veterinary & Animal Husbandry Extension Education"],
+    year: "Third Professional (Year 3)",
+    subjects: [
+      {
+        slug: "veterinary-pharmacology",
+        name: "Veterinary Pharmacology & Toxicology",
+        units: [
+          { unitName: "Unit I — Pharmacokinetics", topics: "Absorption, Distribution, Metabolism, Excretion" },
+          { unitName: "Unit II — Drug classes", topics: "Antibiotics, Anthelmintics, NSAIDs" }
+        ]
+      },
+      {
+        slug: "veterinary-parasitology",
+        name: "Veterinary Parasitology",
+        units: [
+          { unitName: "Unit I — Helminths", topics: "Nematodes, Trematodes, Cestodes" }
+        ]
+      }
+    ]
   },
   {
-    title: "Clinical Sciences & Practice",
-    items: ["Veterinary Medicine", "Veterinary Surgery & Radiology", "Veterinary Gynaecology & Obstetrics (Theriogenology)", "Livestock Farm Practice (LFP)", "Veterinary Clinical Practice-I", "Veterinary Clinical Practice-II"],
+    year: "Fourth Professional (Final Years)",
+    subjects: [
+      {
+        slug: "veterinary-medicine",
+        name: "Veterinary Medicine",
+        units: [
+          { unitName: "Unit I — Infectious diseases", topics: "Clinical signs, Diagnosis, Case management" }
+        ]
+      },
+      {
+        slug: "veterinary-surgery",
+        name: "Veterinary Surgery & Radiology",
+        units: [
+          { unitName: "Unit I — Surgical principles", topics: "Asepsis, Suturing, Wound healing" }
+        ]
+      }
+    ]
   },
   {
-    title: "Essential Support Courses",
-    items: ["Animal Welfare, Ethics & Jurisprudence (AWEJ)"],
-  },
+    year: "Supporting / Essential",
+    subjects: [
+      {
+        slug: "awej",
+        name: "Animal Welfare, Ethics & Jurisprudence (AWEJ)",
+        units: [
+          { unitName: "Unit I — Animal welfare principles", topics: "Five freedoms, Ethics, Legal framework" }
+        ]
+      }
+    ]
+  }
 ]
 
-export default function Subjects() {
+function SubjectCard({ subject, onToggle, expandedUnits, toggleUnit }) {
   return (
-    <section id="subjects" className="py-12 bg-white">
-      <div className="max-w-5xl mx-auto px-4">
-        <h2 className="text-3xl font-bold mb-6 text-center">Subjects — B.V.Sc. & A.H. (VCI-MSVE aligned)</h2>
+    <div className="p-4 border rounded bg-white shadow-sm">
+      <div className="flex justify-between items-start">
+        <div>
+          <h4 className="text-lg font-semibold">{subject.name}</h4>
+          <p className="text-sm text-gray-500">Units: {subject.units.length}</p>
+        </div>
+        <div>
+          <button
+            onClick={() => onToggle(subject.slug)}
+            className="px-3 py-1 text-sm border rounded bg-anisuki text-white"
+          >
+            {expandedUnits[subject.slug] ? "Hide units" : "View units"}
+          </button>
+        </div>
+      </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {SUBJECTS.map((group, idx) => (
-            <div key={idx} className="p-5 border rounded-lg shadow-sm">
-              <h3 className="text-xl font-semibold mb-3">{group.title}</h3>
-              <ul className="list-disc list-inside space-y-1 text-gray-700">
-                {group.items.map((it, i) => {
-                  // create a safe anchor id from the item text
-                  const anchor = it.toLowerCase().replace(/[^\w]+/g, "-").replace(/(^-|-$)/g, "")
-                  return (
-                    <li key={i}>
-                      <a href={`#${anchor}`} className="hover:underline text-anisuki">
-                        {it}
-                      </a>
-                    </li>
-                  )
-                })}
-              </ul>
+      {expandedUnits[subject.slug] && (
+        <div className="mt-3 space-y-2">
+          {subject.units.map((u, idx) => (
+            <div key={idx} className="p-2 border rounded">
+              <div className="flex justify-between items-center">
+                <div className="text-sm font-medium">{u.unitName}</div>
+                <button
+                  onClick={() => toggleUnit(subject.slug, idx)}
+                  className="text-sm text-anisuki hover:underline"
+                >
+                  {u.showTopics ? "Hide topics" : "Show topics"}
+                </button>
+              </div>
+
+              {u.showTopics && (
+                <div className="mt-2 text-sm text-gray-700">
+                  {u.topics}
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  )
+}
+
+export default function Subjects() {
+  // expandedUnits: { [slug]: true/false }
+  const [expandedUnits, setExpandedUnits] = useState({})
+  const [data, setData] = useState(DATA) // allows editing showTopics state locally
+
+  const toggleSubject = (slug) => {
+    setExpandedUnits((s) => ({ ...s, [slug]: !s[slug] }))
+  }
+
+  const toggleUnit = (subjectSlug, unitIndex) => {
+    // toggle showTopics for the specific unit in our data state
+    setData((prev) =>
+      prev.map((block) => ({
+        ...block,
+        subjects: block.subjects.map((sub) =>
+          sub.slug === subjectSlug
+            ? {
+                ...sub,
+                units: sub.units.map((u, i) =>
+                  i === unitIndex ? { ...u, showTopics: !u.showTopics } : u
+                )
+              }
+            : sub
+        )
+      }))
+    )
+  }
+
+  return (
+    <section id="subjects" className="py-12">
+      <div className="max-w-4xl mx-auto px-4">
+        <h2 className="text-3xl font-bold mb-6">Subjects (MSVE 2016 aligned)</h2>
+        <p className="text-sm text-gray-600 mb-6">
+          Click a subject to expand its units. Then click a unit to show comma-separated topics.
+        </p>
+
+        <div className="space-y-6">
+          {data.map((block) => (
+            <div key={block.year} className="space-y-4">
+              <div className="text-xl font-semibold">{block.year}</div>
+              <div className="grid md:grid-cols-2 gap-4">
+                {block.subjects.map((subj) => (
+                  <SubjectCard
+                    key={subj.slug}
+                    subject={subj}
+                    onToggle={toggleSubject}
+                    expandedUnits={expandedUnits}
+                    toggleUnit={toggleUnit}
+                  />
+                ))}
+              </div>
             </div>
           ))}
         </div>
 
-        <p className="mt-6 text-sm text-gray-600 text-center">
-          Click any topic above to jump to that section (pages will be created for each topic and linked to PDFs).  
-          We will add per-subject pages and PDF links next.
+        <p className="text-xs text-gray-500 mt-6">
+          Tip: when you are ready I can convert this data into JSON files so we can auto-generate unit lists from the official syllabus and later link PDFs stored in `public/notes/<subject-slug>/`.
         </p>
       </div>
     </section>
   )
 }
-
