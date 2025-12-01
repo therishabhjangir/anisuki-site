@@ -1,4 +1,3 @@
-// src/components/UnitAccordion.jsx
 import React, { useState } from "react";
 
 /**
