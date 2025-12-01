@@ -1,5 +1,6 @@
 import React from "react"
 import Header from "./components/Header"
+import Hero from "./components/Hero"
 import About from "./components/About"
 import Subjects from "./components/Subjects"
 import Gallery from "./components/Gallery"
@@ -12,6 +13,7 @@ export default function App() {
     <div className="min-h-screen antialiased">
       <Header />
       <main className="py-6">
+        <Hero />
         <About />
         <Subjects />
         <Gallery />
