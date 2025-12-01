@@ -20,6 +20,7 @@ export default function Header() {
         </div>
 <nav className="space-x-4 text-sm flex items-center">
   <a href="#about" className="hover:underline">About</a>
+  <a href="/subjects/anatomy" className="hover:underline">Anatomy</a>
   <a href="#gallery" className="hover:underline">Gallery</a>
   <a href="#news" className="hover:underline">News</a>
   <a href="#contact" className="hover:underline">Contact</a>
