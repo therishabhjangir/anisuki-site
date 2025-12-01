@@ -9,9 +9,23 @@ export default function Header() {
     <header className="w-full p-6 shadow-sm">
       <div className="max-w-4xl mx-auto flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <div className="w-12 h-12 rounded-full overflow-hidden flex items-center justify-center bg-gray-100">
-            <img src={logoPng} alt={`${SITE.name} logo`} className="w-full h-full object-cover" onError={(e)=>{ e.target.onerror=null; e.target.src=logoJpg }} />
-          </div>
+{/* logo container — responsive, keeps aspect ratio, uses object-fit and fallback */}
+<div className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-full overflow-hidden flex items-center justify-center bg-gray-100">
+  <picture>
+    {/* prefer vector if available */}
+    <source srcSet="/logo.svg" type="image/svg+xml" />
+    <img
+      src={logoPng}
+      alt={`${SITE.name} logo`}
+      className="w-full h-full object-cover object-center"
+      onError={(e) => {
+        // fallback order: jpg then svg removed to avoid infinite loop
+        e.target.onerror = null;
+        e.target.src = logoJpg;
+      }}
+    />
+  </picture>
+</div>
 
           <div>
             <h1 className="text-xl font-semibold">{SITE.name}</h1>
