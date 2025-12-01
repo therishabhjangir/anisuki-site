@@ -10,7 +10,44 @@ Arthrology: joint classification; diarthrodial joints, structure and permitted m
 Myology: muscles classification, tendon, ligaments, aponeurosis, synovial bursa & sheath.
 Angiology & Neurology: cardiac structure, systemic/pulmonary circulation overview, lymphatic and venous systems; CNS/PNS/ANS parts, meninges, brain, spinal cord; formation of spinal nerve.
 Surface anatomy: regions, palpable bony prominences, lymph nodes, arteries, veins for venepuncture, bone marrow and CSF collection sites.
-Splanchnology: topography of organs of digestive, respiratory, urinary, reproductive systems (domestic animals & fowl); radiography & ultrasound principles for bones and soft tissues.`
+Splanchnology: topography of organs of digestive, respiratory, urinary, reproductive systems (domestic animals & fowl); radiography & ultrasound principles for bones and soft tissues.`,
+    topics: [
+      {
+        id: "1.1",
+        title: "Introduction to anatomy & branches; descriptive anatomical terms and planes",
+        gdriveLink: "https://drive.google.com/file/d/YOUR_FILE_ID_1/view?usp=sharing"
+      },
+      {
+        id: "1.2",
+        title: "General osteology — properties and bone structure, bone classification",
+        gdriveLink: "https://drive.google.com/file/d/YOUR_FILE_ID_2/view?usp=sharing"
+      },
+      {
+        id: "1.3",
+        title: "Arthrology — joint classification and diarthrodial joints",
+        gdriveLink: "https://drive.google.com/file/d/YOUR_FILE_ID_3/view?usp=sharing"
+      },
+      {
+        id: "1.4",
+        title: "Myology — muscle classification, tendon, ligaments, aponeurosis",
+        gdriveLink: "https://drive.google.com/file/d/YOUR_FILE_ID_4/view?usp=sharing"
+      },
+      {
+        id: "1.5",
+        title: "Angiology & Neurology — heart, circulation, lymphatics, CNS/PNS/ANS, meninges",
+        gdriveLink: "https://drive.google.com/file/d/YOUR_FILE_ID_5/view?usp=sharing"
+      },
+      {
+        id: "1.6",
+        title: "Surface anatomy — palpable prominences, lymph nodes, venepuncture and collection sites",
+        gdriveLink: "https://drive.google.com/file/d/YOUR_FILE_ID_6/view?usp=sharing"
+      },
+      {
+        id: "1.7",
+        title: "Splanchnology basics — organ topography; radiography & ultrasound principles",
+        gdriveLink: "https://drive.google.com/file/d/YOUR_FILE_ID_7/view?usp=sharing"
+      }
+    ]
   },
   {
     id: 2,
