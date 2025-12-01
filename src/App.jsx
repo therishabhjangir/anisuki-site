@@ -10,6 +10,13 @@ import Contact from "./components/Contact"
 import Footer from "./components/Footer"
 
 export default function App() {
+  const hash = typeof window !== "undefined" ? window.location.hash : "";
+
+  // Subject page routes (hash-based). Extend this as you add more subject pages.
+  if (hash === "#/subjects/veterinary-anatomy" || hash === "#/subjects/anatomy") {
+    return <AnatomyPage />;
+  }
+
   return (
     <div className="min-h-screen antialiased">
       <Header />
@@ -23,5 +30,5 @@ export default function App() {
       </main>
       <Footer />
     </div>
-  )
+  );
 }
