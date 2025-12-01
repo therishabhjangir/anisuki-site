@@ -57,11 +57,17 @@ export default function Subjects() {
               <h3 className="text-xl font-semibold mb-3">{block.year}</h3>
 
               <div className="grid md:grid-cols-2 gap-6">
-                {block.subjects.map((subj) => (
-                  <div key={subj.slug} className="border rounded-lg p-4 bg-white shadow-sm">
-                    <h4 className="text-lg font-semibold">{subj.name}</h4>
-                  </div>
-                ))}
+               {block.subjects.map((subj) => (
+  <a
+    key={subj.slug}
+    href={`#/subjects/${subj.slug}`}
+    className="block border rounded-lg p-4 bg-white shadow-sm hover:shadow-md transition"
+    aria-label={`Open ${subj.name}`}
+  >
+    <h4 className="text-lg font-semibold">{subj.name}</h4>
+  </a>
+))}
+
               </div>
             </div>
           ))}
