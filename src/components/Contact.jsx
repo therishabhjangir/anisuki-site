@@ -11,7 +11,11 @@ export default function Contact() {
         <p className="text-gray-600 mb-4">Use this form to receive messages directly to your email (free via formsubmit.co). Replace the email in src/siteConfig.js before deploying.</p>
 
         <form action={actionUrl} method="POST" className="space-y-3">
-          <input type="hidden" name="_subject" value="New message from AniSuki website" />
+  {/* disable formsubmit captcha and redirect back to the contact section after submit */}
+  <input type="hidden" name="_captcha" value="false" />
+  <input type="hidden" name="_next" value="https://anisuki-site-znqn.vercel.app/#contact" />
+  <input type="hidden" name="_subject" value="New message from AniSuki website" />
+
           <input type="text" name="name" placeholder="Your name" required className="w-full p-3 border rounded" />
           <input type="email" name="email" placeholder="Your email" required className="w-full p-3 border rounded" />
           <textarea name="message" placeholder="Message" rows="5" required className="w-full p-3 border rounded"></textarea>
